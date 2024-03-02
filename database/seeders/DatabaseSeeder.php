@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // DB::beginTransaction();
+        DB::beginTransaction();
 
         // desactiva fk
         DB::statement('
@@ -26,9 +26,12 @@ class DatabaseSeeder extends Seeder
 
         // seeders
         $this->call([
-            UserSeeder::class,
+            // UserSeeder::class,            
             JugadorSeeder::class,
-            ClubSeeder::class
+            ClubSeeder::class,
+            PaisSeeder::class,
+            PosicionSeeder::class,
+            HistorialSeeder::class    
         ]);
 
         // activa fk
@@ -43,6 +46,6 @@ class DatabaseSeeder extends Seeder
             END $$;
         ');
 
-        // DB::commit();
+        DB::commit();
     }
 }

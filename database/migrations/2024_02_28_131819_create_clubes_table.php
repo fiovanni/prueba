@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('clubes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 40);
-            $table->string('codigo', 10);
+            $table->string('codigo', 10)->unique();
             $table->date('fecha_fundacion');
             $table->text('descripcion');
             $table->timestamps();
