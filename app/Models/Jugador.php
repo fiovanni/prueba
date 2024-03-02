@@ -27,6 +27,16 @@ class Jugador extends Model
     public function club(){
         return $this->belongsTo(Club::class, 'club_id', 'id');
     }
-    //posicion
-    //nacionalidad
+
+    public function posicion(){
+        return $this->belongsTo(Posicion::class, 'posicion_id', 'id');
+    }
+    
+    public function nacionalidad(){
+        return $this->belongsTo(Pais::class, 'nacionalidad_id', 'id');
+    }
+
+    public function historial(){
+        return $this->hasMany(Historial::class, 'jugador_id', 'id');
+    }
 }

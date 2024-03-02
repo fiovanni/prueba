@@ -12,6 +12,12 @@ class Posicion extends Model
     protected $table='posiciones';
 
     protected $fillable=[
-        
+        'id',
+        'nombre',
+        'codigo'
     ];
+
+    public function jugador(){
+        return $this->hasMany(Jugador::class, 'posicion_id', 'id');
+    }
 }

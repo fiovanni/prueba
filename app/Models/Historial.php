@@ -12,6 +12,22 @@ class Historial extends Model
     protected $table='historiales';
 
     protected $fillable=[
-        
+        'id',
+        'club_id',
+        'jugador_id',
+        'fecha_desde',
+        'fecha_hasta',
+        'goles',
+        'asistencias',
+        'partidos_jugados',
+        'minutos_jugados'
     ];
+
+    public function club(){
+        return $this->belongsTo(Club::class, 'club_id', 'id');
+    }
+    
+    public function jugador(){
+        return $this->belongsTo(Jugador::class, 'jugador_id', 'id');
+    }
 }

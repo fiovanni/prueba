@@ -22,4 +22,8 @@ class Club extends Model
     public function jugador(){
         return $this->hasMany(Jugador::class, 'club_id', 'id');
     }
+
+    public function historial(){
+        return $this->hasMany(Historial::class, 'club_id', 'id');
+    }
 }

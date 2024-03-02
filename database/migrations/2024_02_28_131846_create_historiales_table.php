@@ -14,10 +14,10 @@ return new class extends Migration
             $table->integer('jugador_id'); // fk
             $table->date('fecha_desde');
             $table->date('fecha_hasta');
-            $table->unsignedinteger('goles'); 
-            $table->unsignedinteger('asistencias');
-            $table->unsignedinteger('partidos_jugados');
-            $table->unsignedinteger('minutos_jugados');
+            $table->unsignedInteger('goles'); 
+            $table->unsignedInteger('asistencias');
+            $table->unsignedInteger('partidos_jugados');
+            $table->unsignedInteger('minutos_jugados');
             $table->timestamps();
         });
     }
