@@ -10,9 +10,6 @@ class PosicionSeeder extends Seeder
 {
     public function run(): void
     {
-        Posicion::create([
-            'nombre' => 'mediocampista',
-            'codigo' => '66',
-        ]);
+        Posicion::factory()->create();
     }
 }

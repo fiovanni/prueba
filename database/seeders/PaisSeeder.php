@@ -10,9 +10,6 @@ class PaisSeeder extends Seeder
 {
     public function run(): void
     {
-        Pais::create([
-            'nombre' => 'paraguay',
-            'codigo' => '406',
-        ]);
+        Pais::factory()->create();
     }
 }

@@ -27,11 +27,11 @@ class DatabaseSeeder extends Seeder
         // seeders
         $this->call([
             // UserSeeder::class,            
-            JugadorSeeder::class,
             ClubSeeder::class,
             PaisSeeder::class,
             PosicionSeeder::class,
-            HistorialSeeder::class    
+            JugadorSeeder::class,
+            HistorialSeeder::class
         ]);
 
         // activa fk
