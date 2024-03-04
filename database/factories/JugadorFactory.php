@@ -14,7 +14,7 @@ class JugadorFactory extends Factory
         $faker->addProvider(new \Faker\Provider\es_ES\Person($faker));
 
         return [
-            'club_id' => fake()->numberBetween(1, 4),
+            'club_id' => fake()->numberBetween(1, 5),
             'posicion_id' => fake()->numberBetween(1, 4),
             'nacionalidad_id' => fake()->numberBetween(1, 4),
             'nombre' => $faker->firstName(),

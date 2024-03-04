@@ -10,7 +10,7 @@ class PaisFactory extends Factory
     {
         return [
             'nombre' => fake()->unique()->randomElement(['Paraguay', 'Argentina', 'Brasil', 'España']),
-            'codigo' =>  'PAIS-000'.fake()->unique()->numberBetween(1, 4)
+            'codigo' =>  'PAIS-000'.fake()->unique()->randomDigitNotNull()
         ];
     }
 }

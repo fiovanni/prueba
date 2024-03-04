@@ -11,12 +11,12 @@ class DatabaseSeeder extends Seeder
     {
         // seeders
         $this->call([
-            // UserSeeder::class,
+            UserSeeder::class,
             ClubSeeder::class,
-            // PaisSeeder::class,
-            // PosicionSeeder::class,
-            // JugadorSeeder::class,
-            // HistorialSeeder::class
+            PaisSeeder::class,
+            PosicionSeeder::class,
+            JugadorSeeder::class,
+            HistorialSeeder::class
         ]);
     }
 }
