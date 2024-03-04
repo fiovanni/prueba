@@ -10,6 +10,8 @@ class ClubSeeder extends Seeder
 {
     public function run(): void
     {
-        Club::factory()->create();
+        Club::factory(5)->create([
+            'descripcion' => 'club'
+        ]);
     }
 }

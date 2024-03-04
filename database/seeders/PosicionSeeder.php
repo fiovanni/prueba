@@ -10,6 +10,6 @@ class PosicionSeeder extends Seeder
 {
     public function run(): void
     {
-        Posicion::factory()->create();
+        Posicion::factory(4)->create();
     }
 }

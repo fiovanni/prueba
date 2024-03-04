@@ -9,8 +9,8 @@ class PaisFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => 'paraguay',
-            'codigo' => '406'
+            'nombre' => fake()->unique()->randomElement(['Paraguay', 'Argentina', 'Brasil', 'España']),
+            'codigo' =>  'PAIS-000'.fake()->unique()->numberBetween(1, 4)
         ];
     }
 }

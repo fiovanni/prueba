@@ -10,6 +10,6 @@ class PaisSeeder extends Seeder
 {
     public function run(): void
     {
-        Pais::factory()->create();
+        Pais::factory(4)->create();
     }
 }
