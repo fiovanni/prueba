@@ -7,17 +7,25 @@ use Faker\Generator as FakerGenerator;
 
 class MyFaker extends FakerGenerator
 {
-    // public function posiciones()
-    // {
-    //     $array = [
-    //         'arquero', 
-    //         'defensor', 
-    //         'mediocampista', 
-    //         'delantero'
-    //     ];
-        
-    //     $index = array_rand($array);
+    public $clubes = [
+        'Olimpia', 
+        'Cerro Porteño', 
+        'Luqueño', 
+        'Guarani', 
+        'Sol de América'       
+    ];
 
-    //     return $array[$index];
-    // }
+    public $paises = [
+        'Paraguay', 
+        'Argentina', 
+        'Brasil', 
+        'España'
+    ];
+
+    public $posiciones = [
+        'arquero', 
+        'defensor', 
+        'mediocampista', 
+        'delantero'
+    ];
 }
