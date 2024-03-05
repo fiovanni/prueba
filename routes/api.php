@@ -4,12 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\FutbolController;
 
-Route::post('register', [FutbolController::class, 'register']);
-Route::post('login', [FutbolController::class, 'login']);
+Route::post('futbol/register', [FutbolController::class, 'register']);
+Route::post('futbol/login', [FutbolController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
-    Route::get('user-profile', [FutbolController::class, 'userProfile']);
-    Route::get('logout', [FutbolController::class, 'logout']);
+    Route::get('futbol/user-profile', [FutbolController::class, 'userProfile']);
+    Route::get('futbol/logout', [FutbolController::class, 'logout']);
 });
 
 // comprueba token para pasar

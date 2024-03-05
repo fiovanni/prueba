@@ -8,8 +8,28 @@ use App\Models\User;
 
 class FutbolController extends Controller
 {
+    // Autenticacion
     public function register(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed'
+        ]);
 
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+
+        return response()->json([
+            // "status" => 1,
+            // "msg" => 'Registro de user exitoso'
+
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password            
+        ]);
     }
 
     // public function login(Request $request){
@@ -23,5 +43,8 @@ class FutbolController extends Controller
 
     // public function logout(){
         
-    // }        
+    // }       
+    
+    
+    // Futbol
 }
