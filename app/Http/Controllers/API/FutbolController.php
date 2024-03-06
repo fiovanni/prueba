@@ -17,18 +17,20 @@ class FutbolController extends Controller
         ]);
 
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
         $user->save();
 
         return response()->json([
-            // "status" => 1,
-            // "msg" => 'Registro de user exitoso'
-
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password            
+            'status' => 200,
+            'errors' => '', 
+            'message' => 'Registro de user exitoso',
+            'data' => [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password    
+            ]                  
         ]);
     }
 
