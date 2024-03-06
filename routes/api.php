@@ -4,9 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\FutbolController;
 
+// Autenticacion
 Route::post('futbol/register', [FutbolController::class, 'register']);
 Route::post('futbol/login', [FutbolController::class, 'login']);
 
+// Sanctum protege la api
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('futbol/user-profile', [FutbolController::class, 'userProfile']);
     Route::get('futbol/logout', [FutbolController::class, 'logout']);
@@ -16,3 +18,5 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+// Futbol
