@@ -4,12 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Club;
+use App\Models\Jugador;
 
 class FutbolController extends Controller
 {
-    // auth
+    // Auth
     // Registro user
     public function register(Request $request){
         // valida request
@@ -22,7 +24,6 @@ class FutbolController extends Controller
 
         // inserta user
         $pass = Hash::make($request->password);
-        
         $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
@@ -59,7 +60,7 @@ class FutbolController extends Controller
             if(Hash::check($request->password, $user->password)){ 
                 // crea token
                 $token = $user->createToken("auth_token")->plainTextToken;
-
+                // response
                 return response()->json([
                     'status' => 200,
                     'errors' => [], 
@@ -92,9 +93,8 @@ class FutbolController extends Controller
         }
         
     }
-
-    
-    // logeado con el token
+        
+    // Logeado
     // user actual
     public function userProfile(){
         // response
@@ -108,7 +108,7 @@ class FutbolController extends Controller
 
     // Logout
     public function logout(){
-        // borrar token de sesion del user
+        // borra token de sesion
         auth()->user()->tokens()->delete();
 
         // response
@@ -119,8 +119,53 @@ class FutbolController extends Controller
             'data' => []                  
         ], 200);  
     }   
-        
-        
+
+            
     // Futbol
-    // endpoints
+    // Listado de Clubes
+    public function clubes(Request $request){            
+        //filtro nombre
+        if(isset($request->nombre)){
+            $clubes = Club::where('nombre', '=', $request->nombre)->first(); // club
+        }else{
+            $clubes = Club::all(); //clubes
+        }
+
+        // response
+        return response()->json(['clubes' => $clubes]); // formato response *            
+    }
+
+    // Listado de Jugadores 
+    public function jugadores(Request $request){            
+        // por club
+        $jugadores = Jugador::where('club_id', '=', $request->club_id);                
+                        
+        //filtros
+        // posicion
+        if(isset($request->posicion_id)){
+            $jugadores = $jugadores->where('posicion_id', '=', $request->posicion_id);
+        }
+        // nacionalidad
+        if(isset($request->nacionalidad_id)){
+            $jugadores = $jugadores->where('nacionalidad_id', '=', $request->nacionalidad_id);
+        }        
+        // cuj
+        if(isset($request->cuj)){
+            $jugadores = $jugadores->where('cuj', '=', $request->cuj);
+        }
+        // edad
+        if(isset($request->edad)){
+            $jugadores = $jugadores->where('edad', '=', $request->edad);
+        }
+
+        $jugadores = $jugadores->get();
+        
+        // response
+        return response()->json(['jugadores' => $jugadores]); // formato response *            
+    }
+
+    // Crear Jugador        
+    public function crearJugador(){
+        // Jugador
+    }
 }
