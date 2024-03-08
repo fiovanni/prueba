@@ -20,6 +20,9 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 Route::get('futbol/clubes', [FutbolController::class, 'clubes']); // Listado de Clubes
 Route::get('futbol/jugadores', [FutbolController::class, 'jugadores']); // Listado de Jugadores
 Route::post('futbol/jugadores', [FutbolController::class, 'crearJugador']); // Crear Jugador
+Route::put('futbol/jugadores/{id}', [FutbolController::class, 'editarJugador']); // Editar Jugador
+// borrar
+// ulti query
 
 // user autenticado //pasar token
 // Route::middleware('auth:sanctum')->get('futbol/user', function (Request $request) {

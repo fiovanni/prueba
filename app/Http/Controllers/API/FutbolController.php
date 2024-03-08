@@ -11,7 +11,7 @@ use App\Models\Jugador;
 
 class FutbolController extends Controller
 {
-    // Auth
+    // Auth----------------------------------------------
     // Registro user
     public function register(Request $request){
         // valida request
@@ -43,6 +43,7 @@ class FutbolController extends Controller
         ], 200);
     }
 
+    
     // Login user
     public function login(Request $request){
         // valida request
@@ -50,7 +51,7 @@ class FutbolController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        // excepxiones *
+        // excepciones *
 
         // compara con bd
         $user = User::where('email', '=', $request->email)->first();
@@ -93,6 +94,7 @@ class FutbolController extends Controller
         }
         
     }
+
         
     // Logeado
     // user actual
@@ -105,6 +107,7 @@ class FutbolController extends Controller
             'data' => auth()->user()                  
         ], 200);        
     }
+
 
     // Logout
     public function logout(){
@@ -119,9 +122,9 @@ class FutbolController extends Controller
             'data' => []                  
         ], 200);  
     }   
-
-            
-    // Futbol
+    
+    
+    // Futbol----------------------------------------------
     // Listado de Clubes
     public function clubes(Request $request){            
         //filtro nombre
@@ -132,9 +135,15 @@ class FutbolController extends Controller
         }
 
         // response
-        return response()->json(['clubes' => $clubes]); // formato response *            
+        return response()->json([
+            'status' => 200,
+            'errors' => [], 
+            'message' => '',
+            'data' => $clubes          
+        ], 200);
     }
 
+    
     // Listado de Jugadores 
     public function jugadores(Request $request){            
         // por club
@@ -161,11 +170,91 @@ class FutbolController extends Controller
         $jugadores = $jugadores->get();
         
         // response
-        return response()->json(['jugadores' => $jugadores]); // formato response *            
+        return response()->json([
+            'status' => 200,
+            'errors' => [], 
+            'message' => '',
+            'data' => $jugadores          
+        ], 200);
     }
 
+
     // Crear Jugador        
-    public function crearJugador(){
-        // Jugador
+    public function crearJugador(Request $request){
+        // valida request
+        $request->validate([
+            'club_id' => 'required',
+            'posicion_id' => 'required',
+            'nacionalidad_id' => 'required',
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'cuj' => 'required|unique:jugadores',
+            'edad' => 'required',
+            'nro_camiseta' => 'required'            
+        ]);
+        // excepciones *
+    
+        // inserta         
+        $nuevo_jugador = Jugador::create([
+            'club_id' => $request->club_id, 
+            'posicion_id' => $request->posicion_id, 
+            'nacionalidad_id' => $request->nacionalidad_id, 
+            'nombre' => $request->nombre, 
+            'apellido' => $request->apellido, 
+            'cuj' => $request->cuj, 
+            'edad' => $request->edad,
+            'nro_camiseta' => $request->nro_camiseta, 
+            'descripcion' => $request->descripcion 
+        ]);
+
+        // response
+        return response()->json([
+            'status' => 200,
+            'errors' => [], 
+            'message' => 'Registro de jugador exitoso',
+            'data' => $nuevo_jugador
+        ], 200);
     }
+
+
+    public function editarJugador(Request $request){
+        // valida request
+        // $request->validate([
+        //     'club_id' => 'required',
+        //     'posicion_id' => 'required',
+        //     'nacionalidad_id' => 'required',
+        //     'nombre' => 'required',
+        //     'apellido' => 'required',
+        //     'cuj' => 'required|unique:jugadores',
+        //     'edad' => 'required',
+        //     'nro_camiseta' => 'required'            
+        // ]);
+        // // excepciones *
+
+        // actualiza
+        // $jugador_actualizado = Jugador::where('id', $request->id)->update([
+        //     'club_id' => $request->club_id, 
+        //     'posicion_id' => $request->posicion_id, 
+        //     'nacionalidad_id' => $request->nacionalidad_id, 
+        //     'nombre' => $request->nombre, 
+        //     'apellido' => $request->apellido, 
+        //     'cuj' => $request->cuj, 
+        //     'edad' => $request->edad,
+        //     'nro_camiseta' => $request->nro_camiseta, 
+        //     'descripcion' => $request->descripcion     
+        // ]);
+        
+        // 'data' => request()->id
+        
+        // response
+        // return response()->json([
+            // 'status' => 200,
+            // 'errors' => [], 
+            // 'message' => 'Actualización de jugador exitosa',
+            // 'data' => $jugador_actualizado
+        // ], 200);
+    }
+
+    //eliminar()
+    //ultimaquery()
 }

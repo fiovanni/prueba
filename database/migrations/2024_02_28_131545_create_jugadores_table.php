@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('cuj', 10)->unique();
             $table->unsignedInteger('edad');
             $table->unsignedInteger('nro_camiseta');
-            $table->string('descripcion', 40);        
+            $table->string('descripcion', 40)->nullable();        
             $table->timestamps();
         });
     }
