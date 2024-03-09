@@ -4,16 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-
+    use Illuminate\Support\Facades\Hash;
+    use App\Models\User;
 use App\Models\Club;
 use App\Models\Jugador;
-use App\Models\historial;
-
-// posiciones
-// nacionalidad
+use App\Models\Historial;
+use App\Models\Posicion;
+use App\Models\Pais;
 
 class FutbolController extends Controller
 {
@@ -294,26 +291,43 @@ class FutbolController extends Controller
 
     // Historiales de Jugadores
     public function historialesJugadores(Request $request){
-        // $historialJugador = Historial::find($request->id)->first(); //get
-
-        //filtros:
+        // $historialJugador = Historial::find($request->id)->first(); //get {id}
+        
+        $historialJugador = Jugador::with('historial.club');
+        // filtros
         // nombre
+        if(isset($request->nombre)){
+            $historialJugador = $historialJugador->where('nombre', '=', $request->nombre);
+        }
         // apellido
-        //cuj
+        if(isset($request->apellido)){
+            $historialJugador = $historialJugador->where('apellido', '=', $request->apellido);
+        }
+        // cuj
+        if(isset($request->cuj)){
+            $historialJugador = $historialJugador->where('cuj', '=', $request->cuj);
+        }
 
-        // mostrar:
-        // jugador datos 
-        // gol, asis, part
-        // club
-        // posicion
-        // pais
+        $historialJugador = $historialJugador->first();
 
-        // response
-        // return response()->json([
-            // 'status' => 404,
-            // 'errors' => [], 
-            // 'message' => 'No existe registro',
-            // 'data' => $historialJugador
-        // ], 404);  
+        // si existe
+        if($historialJugador != null){
+            // response
+            return response()->json([
+                'status' => 200,
+                'errors' => [], 
+                'message' => '',
+                'data' => $historialJugador
+            ], 200);
+            
+        }else{
+            // si no existe
+            return response()->json([
+                'status' => 404,
+                'errors' => [], 
+                'message' => 'No existe registro',
+                'data' => []
+            ], 404);
+        }
     }
 }
