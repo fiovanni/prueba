@@ -11,7 +11,8 @@ class JugadorSeeder extends Seeder
     public function run(): void
     {
         Jugador::factory(10)->create([
-            'descripcion' => 'jugador'
+            'descripcion' => 'jugador',
+            'estado' => 'activo'
         ]);
     }
 }

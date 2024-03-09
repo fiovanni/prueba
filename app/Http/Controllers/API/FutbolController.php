@@ -4,10 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+
 use App\Models\Club;
 use App\Models\Jugador;
+use App\Models\historial;
+
+// posiciones
+// nacionalidad
 
 class FutbolController extends Controller
 {
@@ -217,44 +223,97 @@ class FutbolController extends Controller
     }
 
 
+    // Editar Jugador
     public function editarJugador(Request $request){
         // valida request
-        // $request->validate([
-        //     'club_id' => 'required',
-        //     'posicion_id' => 'required',
-        //     'nacionalidad_id' => 'required',
-        //     'nombre' => 'required',
-        //     'apellido' => 'required',
-        //     'cuj' => 'required|unique:jugadores',
-        //     'edad' => 'required',
-        //     'nro_camiseta' => 'required'            
-        // ]);
-        // // excepciones *
+        $request->validate([
+            'club_id' => 'required',
+            'posicion_id' => 'required',
+            'nacionalidad_id' => 'required',
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'cuj' => 'required|unique:jugadores',
+            'edad' => 'required',
+            'nro_camiseta' => 'required'            
+        ]);
+        // excepciones *
 
         // actualiza
-        // $jugador_actualizado = Jugador::where('id', $request->id)->update([
-        //     'club_id' => $request->club_id, 
-        //     'posicion_id' => $request->posicion_id, 
-        //     'nacionalidad_id' => $request->nacionalidad_id, 
-        //     'nombre' => $request->nombre, 
-        //     'apellido' => $request->apellido, 
-        //     'cuj' => $request->cuj, 
-        //     'edad' => $request->edad,
-        //     'nro_camiseta' => $request->nro_camiseta, 
-        //     'descripcion' => $request->descripcion     
-        // ]);
-        
-        // 'data' => request()->id
+        $jugador_actualizado = Jugador::where('id', $request->id)->update([
+            'club_id' => $request->club_id, 
+            'posicion_id' => $request->posicion_id, 
+            'nacionalidad_id' => $request->nacionalidad_id, 
+            'nombre' => $request->nombre, 
+            'apellido' => $request->apellido, 
+            'cuj' => $request->cuj, 
+            'edad' => $request->edad,
+            'nro_camiseta' => $request->nro_camiseta, 
+            'descripcion' => $request->descripcion     
+        ]);
         
         // response
-        // return response()->json([
-            // 'status' => 200,
-            // 'errors' => [], 
-            // 'message' => 'Actualización de jugador exitosa',
-            // 'data' => $jugador_actualizado
-        // ], 200);
+        return response()->json([
+            'status' => 200,
+            'errors' => [], 
+            'message' => 'Actualización de jugador exitosa',
+            'data' => $jugador_actualizado
+        ], 200);
     }
 
-    //eliminar()
-    //ultimaquery()
+
+    // Borrar Jugador
+    public function borrarJugador(Request $request){
+        // busca
+        $jugador=Jugador::find($request->id);
+        // si existe
+        if($jugador != null){
+            // borrar
+            $jugador->update(['estado' => 'inactivo']); //borrado logico
+            // $jugador->delete(); //borrado fisico            
+
+            // response
+            return response()->json([
+                'status' => 200,
+                'errors' => [], 
+                'message' => 'Borrado de jugador exitoso',
+                'data' => $jugador
+            ], 200);
+
+        }else{            
+            // si no existe
+            // response
+            return response()->json([
+                'status' => 404,
+                'errors' => [], 
+                'message' => 'No existe registro',
+                'data' => []
+            ], 404);
+        }
+    }
+
+
+    // Historiales de Jugadores
+    public function historialesJugadores(Request $request){
+        // $historialJugador = Historial::find($request->id)->first(); //get
+
+        //filtros:
+        // nombre
+        // apellido
+        //cuj
+
+        // mostrar:
+        // jugador datos 
+        // gol, asis, part
+        // club
+        // posicion
+        // pais
+
+        // response
+        // return response()->json([
+            // 'status' => 404,
+            // 'errors' => [], 
+            // 'message' => 'No existe registro',
+            // 'data' => $historialJugador
+        // ], 404);  
+    }
 }

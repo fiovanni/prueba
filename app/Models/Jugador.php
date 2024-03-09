@@ -21,7 +21,8 @@ class Jugador extends Model
         'cuj',
         'edad',
         'nro_camiseta',
-        'descripcion'      
+        'descripcion',
+        'estado'      
     ];
 
     public function club(){
