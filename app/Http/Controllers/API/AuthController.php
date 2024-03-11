@@ -13,13 +13,14 @@ class AuthController extends Controller
     // Registro User
     public function register(Request $request){
         try{
-            // valida request
+            // validar request
             $request->validate([
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|confirmed'
             ]);
 
+            // si no pasa validacion    
             // inserta user
             $pass = Hash::make($request->password);
             $user = new User();
@@ -40,7 +41,8 @@ class AuthController extends Controller
                 ]                  
             ], 200);
         
-        // captura exception
+        // si no pasa validacion
+        // captura exception 
         }catch(ValidationException $e){
             // manejo de mensajes
             $errors = $e->validator->getMessageBag();
@@ -57,13 +59,14 @@ class AuthController extends Controller
 
     // Login User
     public function login(Request $request){
-        // try
-            // valida request
+        try{
+            // validar request
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
-                    
+            
+            // si pasa validacion            
             // compara con bd
             $user = User::where('email', '=', $request->email)->first();
             // si existe
@@ -102,11 +105,27 @@ class AuthController extends Controller
                     'message' => 'User no registrado',
                     'data' => []                  
                 ], 404);
-            }        
+            }
+
+        // si no pasa validacion         
+        // captura exception 
+        }catch(ValidationException $e){
+            // manejo de mensajes
+            $errors = $e->validator->getMessageBag();
+            // response
+            return response()->json([
+                'status' => 422,
+                'errors' => $errors->keys(), 
+                'message' => 'Error de validación',
+                'data' => $errors->first()
+            ], 422);
+        }               
     }
 
 
-    // Logeado------------------
+    // Logeado
+    
+
     // User Actual
     public function userProfile(){
         // response

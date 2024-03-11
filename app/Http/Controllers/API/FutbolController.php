@@ -30,9 +30,12 @@ class FutbolController extends Controller
     
     // Listado de Jugadores 
     public function jugadores(Request $request){          
-        //// por club
-        $jugadores = Jugador::with('posicion','nacionalidad')->where('club_id', '=', $request->club_id);
-           
+        $jugadores = Jugador::with('posicion','nacionalidad');
+        // por club
+        if(isset($request->club_id)){
+            $jugadores->where('club_id', '=', $request->club_id);
+        }
+
         //filtros
         // posicion
         if(isset($request->posicion_id)){
