@@ -20,7 +20,7 @@ class AuthController extends Controller
                 'password' => 'required|confirmed'
             ]);
 
-            // si no pasa validacion    
+            // si pasa validacion    
             // inserta user
             $pass = Hash::make($request->password);
             $user = new User();
@@ -29,7 +29,7 @@ class AuthController extends Controller
                 $user->password = $pass;
             $user->save();
 
-            // response
+            // response // devuelve request
             return response()->json([
                 'status' => 200,
                 'errors' => [], 
@@ -75,7 +75,7 @@ class AuthController extends Controller
                 if(Hash::check($request->password, $user->password)){ 
                     // crea token
                     $token = $user->createToken("auth_token")->plainTextToken;
-                    // response
+                    // response // token de sesion
                     return response()->json([
                         'status' => 200,
                         'errors' => [], 
@@ -128,7 +128,7 @@ class AuthController extends Controller
 
     // User Actual
     public function userProfile(){
-        // response
+        // response // sesion activa
         return response()->json([
             'status' => 200,
             'errors' => [], 
@@ -143,12 +143,15 @@ class AuthController extends Controller
         // borra token de sesion
         auth()->user()->tokens()->delete();
 
-        // response
+        // response // fin de sesion
         return response()->json([
             'status' => 200,
             'errors' => [], 
             'message' => 'Logout de user exitoso, sesión cerrada',
             'data' => []                  
         ], 200);  
+
+        // con esto, al intentar acceder a un servicio, advierte que hay que autenticarse
+        // como antes del login
     }  
 }
