@@ -3,7 +3,7 @@ API de Fútbol
 Muestra de desarrollo back end con laravel y postgres
 
 
-Carpetas y archivos
+Carpetas y archivos:
 
 
 app
