@@ -159,7 +159,7 @@ class FutbolController extends Controller
                 
                 // si pasa validacion    
                 // actualiza
-                $jugador_actualizado = $jugador->update([
+                $jugador->update([
                     'club_id' => $request->club_id, 
                     'posicion_id' => $request->posicion_id, 
                     'nacionalidad_id' => $request->nacionalidad_id, 
@@ -176,7 +176,7 @@ class FutbolController extends Controller
                     'status' => 200,
                     'errors' => [], 
                     'message' => 'Actualización de jugador exitosa',
-                    'data' => $jugador_actualizado
+                    'data' => $jugador
                 ], 200);
 
             // si no pasa validacion
